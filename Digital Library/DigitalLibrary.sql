@@ -52,9 +52,19 @@ JOIN IssuedBooks i ON b.BookID = i.BookID
 GROUP BY b.Category
 ORDER BY TotalBorrows DESC;
 
+DELETE FROM IssuedBooks
+WHERE StudentID NOT IN (
+    SELECT StudentID
+    FROM (
+        SELECT DISTINCT StudentID
+        FROM IssuedBooks
+        WHERE IssueDate >= CURRENT_DATE - INTERVAL 3 YEAR
+    ) AS temp
+);
+
 DELETE FROM Students
 WHERE StudentID NOT IN (
     SELECT DISTINCT StudentID
     FROM IssuedBooks
-    WHERE IssueDate >= CURRENT_DATE - INTERVAL '3' YEAR
+    WHERE IssueDate >= CURRENT_DATE - INTERVAL 3 YEAR
 );
