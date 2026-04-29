@@ -4,6 +4,7 @@ CREATE TABLE Books (
     Category VARCHAR(50)
 );
 
+
 CREATE TABLE Students (
     StudentID INT PRIMARY KEY,
     Name VARCHAR(100)
